@@ -5,7 +5,15 @@
 // class constructor
     function zasilkovna() {
       global $order, $db;
-
+      
+      /** injected code cleanup (for mailing, etc) **/
+      if(preg_match('/^Zásilkovna/', $order->info['shipping_method'])){
+        $order->info['shipping_method'] = MODULE_SHIPPING_ZAS_TEXT_WAY;
+      }
+      if(preg_match('/^Zásilkovna/', $_SESSION['shipping']['title'])){
+        $_SESSION['shipping']['title'] = MODULE_SHIPPING_ZAS_TEXT_WAY;
+      }
+      
       $this->code = 'zasilkovna';
       $this->title = MODULE_SHIPPING_ZAS_TEXT_TITLE;
       $this->description = MODULE_SHIPPING_ZAS_TEXT_DESCRIPTION;
